@@ -36,24 +36,20 @@ python -m unittest discover -s tests -v
 - Compare products and create **draft RFQs only** / 商品对比、仅生成 RFQ 草稿
 - FastAPI endpoints plus local SQLite storage / API 与本地草稿存储
 
-The matching engine defaults to **fail closed** on missing compatibility evidence. A semantic retrieval service, PostgreSQL + pgvector and an LLM requirement-extraction adapter are **proposed architecture**, not implemented components.
+The matching engine labels unverified compatibility as **needs_review** and rejects known conflicts. The standalone browser UI and backend API use separate synthetic demonstration catalogs. A semantic retrieval service, PostgreSQL + pgvector and an LLM requirement-extraction adapter are **proposed architecture**, not implemented components.
 
 ## Project files / 文件说明
 
 | Path | Purpose |
 | --- | --- |
-| `web/` | Browser prototype: HTML/CSS/JS |
-| `app/` | FastAPI endpoints, matching and synthetic catalog |
+| `AI采购选型_在线演示单文件.html` | Self-contained browser prototype (HTML/CSS/JS) |
+| `app/` | FastAPI endpoints, matching and synthetic catalog (API and static demo are independent) |
 | `tests/` | Regression tests |
-| `docs/01_产品需求文档_PRD.docx` | Product requirements document / PRD |
+| `docs/04_验收与下一版清单.md` | Product requirements checklist and next milestones |
 | `docs/02_系统技术架构.md` | Planned technical architecture |
 | `docs/schema.sql` | Proposed future PostgreSQL schema (not deployed) |
 | `docs/03_OpenAPI_接口定义.json` | Demo API description |
-| `assets/` | Product screenshots |
-
-## Illustrative screens / 演示截图
-
-![Desktop demo](assets/demo_desktop.png)
+| `docs/` | Proposed architecture, OpenAPI contract, SQL schema and acceptance plan |
 
 ## Security / 安全
 
