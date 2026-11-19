@@ -1,0 +1,496 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="AI Sourcing Copilot — 智能工业相机选型与 RFQ 演示系统"><title>AI Sourcing Copilot · 产品原型 / Demo</title><style>:root{--bg:#f4f7f8;--paper:#fff;--ink:#132936;--muted:#647784;--line:#e0e8eb;--teal:#087d74;--dark:#112b36;--accent:#dff7ee;--amber:#a45c0a;--amberbg:#fff5e6;--danger:#ae483c;--redbg:#fff0ec;--shadow:0 7px 24px rgba(27,60,70,.045);font-family:'Inter','Noto Sans SC','PingFang SC','Microsoft Yahei',system-ui,sans-serif;color:var(--ink)}*{box-sizing:border-box}body{margin:0;background:var(--bg)}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #7bc7ba;outline-offset:2px}.app{display:flex;min-height:100vh}.sidebar{width:228px;flex-shrink:0;background:#0f2935;color:#ecf9f6;position:sticky;top:0;height:100vh;padding:28px 16px;display:flex;flex-direction:column}.mark{display:flex;align-items:center;gap:11px;padding:0 11px 28px}.mark-square{width:37px;height:37px;background:#13a792;color:white;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:900;box-shadow:0 5px 16px #003e3b60}.mark strong{font-size:16px;letter-spacing:.1px}.mark small{display:block;color:#95b8b8;letter-spacing:.12em;font-size:10px;margin-top:2px}.nav-label{font-size:10px;font-weight:800;color:#71989e;letter-spacing:.16em;padding:0 15px 10px}.nav{display:flex;flex-direction:column;gap:6px}.nav button{background:transparent;color:#9fbcc2;border:0;text-align:left;border-radius:10px;padding:12px 15px;display:flex;align-items:center;gap:12px;font-size:13px}.nav button.active,.nav button:hover{background:#1f414d;color:white}.nav .ni{font-size:18px;min-width:20px}.sidefoot{margin-top:auto;border-top:1px solid #294853;padding:18px 12px 0}.sidefoot .mode{background:#254b4c;border:1px solid #406e65;color:#a5f0d1;border-radius:8px;padding:8px;font-size:11px;font-weight:700}.sidefoot p{line-height:1.6;color:#91b1b6;font-size:11px}.content{flex:1;min-width:0;padding:26px clamp(20px,3.7vw,64px) 55px;max-width:1650px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px;gap:12px}.breadcrumb{font-size:12px;color:#78909a}.topright{display:flex;gap:10px;align-items:center}.chip{padding:7px 11px;border:1px solid var(--line);border-radius:999px;font-size:11px;background:white;color:#536f7b}.chip.green{background:#e2f6ed;color:#17755a;border-color:#bce5d2}.avatar{background:#d9e5e8;color:#27444d;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;font-weight:700;font-size:12px}.intro h1{font-size:30px;line-height:1.25;margin:0 0 10px;letter-spacing:-.04em}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:10px;color:var(--teal);font-weight:850;margin:0 0 10px}.notice{background:#fffaf0;color:#795426;border:1px solid #f1ddb1;padding:12px 15px;margin:19px 0;border-radius:11px;font-size:12px;line-height:1.6}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0 22px}.stat{background:white;border:1px solid var(--line);padding:18px;border-radius:14px;box-shadow:var(--shadow)}.stat label{display:block;color:#6d838d;font-size:11px;margin-bottom:8px}.stat b{font-size:25px;letter-spacing:-.04em}.stat small{display:block;font-size:10px;color:#8b9ba3;margin-top:5px}.two{display:grid;grid-template-columns:minmax(320px,.94fr) minmax(350px,1.06fr);gap:17px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:17px;padding:22px;margin-bottom:16px}.panel-head{display:flex;justify-content:space-between;align-items:start;gap:8px;margin-bottom:16px}.panel h2{font-size:16px;letter-spacing:-.02em;margin:0}.panel .sub{font-size:11px;color:#8598a1;margin-top:6px;line-height:1.6}.pill{border:1px solid #d4e4e3;border-radius:999px;padding:5px 9px;background:#f4faf9;color:#477269;font-size:10px;white-space:nowrap;font-weight:750}.field{display:block;font-size:11px;font-weight:750;color:#425d68;margin:13px 0 7px}.textarea{width:100%;min-height:116px;border:1px solid #cddadd;border-radius:11px;padding:13px 14px;background:#fbfdfd;color:#1c333f;line-height:1.65;font-size:13px;resize:vertical}.input,.select{width:100%;height:38px;border:1px solid #d2dee1;border-radius:9px;background:white;color:#17313c;padding:8px 10px;font-size:12px}.inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 11px}.scenario{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.scenario button{font-size:11px;padding:7px 9px;background:#f1f7f6;border:1px solid #d9e9e6;border-radius:8px;color:#3c6f69}.scenario button:hover{border-color:#0c8c7c}.actions{display:flex;align-items:center;gap:9px;margin-top:18px}.primary{border:1px solid var(--teal);border-radius:9px;background:var(--teal);color:white;font-weight:750;padding:11px 16px;font-size:12px}.primary:hover{background:#04695f}.secondary{border:1px solid #d3e2e4;border-radius:9px;background:white;color:#355d66;font-weight:730;padding:10px 13px;font-size:12px}.secondary:hover{background:#f0f8f7}.actions .primary{flex:1}.hint{font-size:11px;color:#7a8d96;line-height:1.7;margin:12px 0 0}.section-title{font-size:12px;font-weight:800;margin:0 0 12px}.steps{display:flex;gap:4px;align-items:center;flex-wrap:wrap;margin-bottom:19px}.step{font-size:10px;padding:8px 9px;border-radius:7px;background:#f3f7f7;color:#69808a;font-weight:700}.step.done{background:#e3f5ee;color:#13795f}.arrow{color:#97a9b0;font-size:12px}.result-summary{border:1px solid #cae8dc;background:#f0faf5;border-radius:11px;padding:11px 13px;color:#24614f;font-size:12px;line-height:1.7;margin-bottom:14px}.result-summary.empty{background:#fff8ec;color:#93642e;border-color:#f5dfbd}.prodcard{border:1px solid var(--line);border-radius:13px;padding:15px;margin-bottom:10px;background:white}.prodcard.top{border-color:#b4ddd1;box-shadow:0 3px 12px #1377610b}.prodcard.miss{background:#fcfdfd}.cardrow{display:flex;justify-content:space-between;gap:9px;align-items:center}.prodcard h3{margin:0;font-size:13px}.prodcard small{font-size:10px;color:#7b8e98}.rank{color:#0d806e;background:#e4f5ef;border-radius:7px;padding:5px 7px;font-size:11px;font-weight:750;white-space:nowrap}.rank.no{color:#a05837;background:#fff0e8}.prod-desc{font-size:11px;color:#536e79;line-height:1.7;margin:9px 0}.metarow{display:flex;gap:7px;flex-wrap:wrap}.meta{font-size:10px;background:#f3f6f7;color:#647b85;border-radius:6px;padding:5px 7px}.explain{margin-top:9px;background:#f1f9f5;color:#39715b;padding:10px;border-radius:8px;font-size:11px;line-height:1.55}.explain.reject{background:#fff6f0;color:#a15f36}.button-row{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}.button-row button{font-size:11px;padding:7px 10px}.noresults{border:1px dashed #c6d8d9;border-radius:11px;color:#718d94;text-align:center;padding:35px 20px;font-size:12px;line-height:1.7}.resulttabs{display:flex;gap:7px;margin-bottom:14px}.resulttabs button{padding:7px 11px;border:1px solid #dbe4e5;border-radius:8px;background:white;color:#647b86;font-size:11px}.resulttabs button.active{background:#1a4a52;border-color:#1a4a52;color:white}.block{display:none}.block.active{display:block}.tablewrap{overflow-x:auto}.data-table{width:100%;border-collapse:collapse;font-size:12px}.data-table th{text-align:left;font-size:10px;color:#7b9099;letter-spacing:.035em;background:#f5f9f9;padding:11px 10px}.data-table td{padding:12px 10px;border-bottom:1px solid #e9eff0;white-space:nowrap}.data-table tr:hover td{background:#fbfdfd}.data-table b{font-weight:750}.table-action{background:#edf8f5;border:0;padding:6px 9px;border-radius:7px;color:#0b796d;font-size:11px}.grid-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.supply{border:1px solid var(--line);padding:16px;border-radius:12px}.supply .symbol{width:32px;height:32px;display:grid;place-items:center;border-radius:9px;background:#e8f6f0;color:#147c6c;margin-bottom:10px}.supply h3{font-size:13px;margin:0 0 7px}.supply p{font-size:11px;color:#7c9298;line-height:1.5;margin:0}.muted{color:#798e97}.statband{padding:16px 18px;background:#eaf5f1;border:1px solid #cfe6dd;border-radius:13px;font-size:12px;color:#1e6352;line-height:1.7;margin-bottom:16px}.arch-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:20px 0}.arch-node{background:#f8fbfb;border:1px solid #d8e7e8;border-radius:11px;padding:14px 8px;text-align:center;min-height:98px}.arch-node b{display:block;font-size:12px;margin-bottom:8px}.arch-node span{font-size:10px;color:#71858c;line-height:1.5}.arch-node.highlight{background:#e9f7f1;border-color:#a8d8c7}.codeblock{background:#122e38;color:#e4fcf1;border-radius:13px;padding:18px;white-space:pre-wrap;font-size:11px;line-height:1.85;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.buttonbox{display:flex;justify-content:flex-end;gap:10px;margin:12px 0}.modal-backdrop{position:fixed;inset:0;background:#0e2634a6;display:none;align-items:center;justify-content:center;z-index:99;padding:18px}.modal-backdrop.show{display:flex}.modal{background:white;width:min(570px,100%);max-height:90vh;overflow:auto;border-radius:19px;padding:25px;box-shadow:0 20px 100px #061e2c40}.modal h2{font-size:19px;margin:0 0 7px}.modal p{font-size:12px;color:#6c838c;line-height:1.6}.modal .close{background:#edf2f3;border:0;border-radius:8px;padding:6px 11px;font-size:18px}.overlaytop{display:flex;align-items:start;justify-content:space-between}.toast{position:fixed;bottom:25px;right:25px;padding:12px 18px;background:#173d42;color:white;font-size:12px;box-shadow:0 8px 30px #193b3e40;border-radius:10px;opacity:0;transform:translateY(10px);transition:.2s;z-index:101;pointer-events:none}.toast.on{opacity:1;transform:translateY(0)}.footer{border-top:1px solid #d9e4e5;padding-top:17px;margin-top:29px;color:#8b9da2;font-size:10px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:23px 0 16px}.sectionhead h2{margin:0;font-size:20px}.split{display:grid;grid-template-columns:1fr 330px;gap:16px}.mini-list{display:flex;flex-direction:column;gap:9px}.mini-item{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #edf1f1;font-size:12px}.mini-item small{color:#8599a1}.comparebox{margin:12px 0 0;border-top:1px solid #ecf0f0;padding-top:12px}.marking{font-size:10px;background:#eff2fa;color:#4c6484;padding:5px 7px;border-radius:5px}.mobile-head{display:none}.no-shadow{box-shadow:none}.focusable:hover{color:var(--teal)}@media(max-width:1240px){.two{grid-template-columns:1fr}.content{padding-left:30px;padding-right:30px}.arch-flow{grid-template-columns:repeat(3,1fr)}}@media(max-width:850px){.sidebar{display:none}.mobile-head{display:flex;background:#0f2935;padding:13px;color:white;justify-content:space-between;position:sticky;top:0;z-index:20}.mobile-head select{padding:8px;background:#25464e;color:white;border:0;border-radius:8px}.app{display:block}.content{padding:22px 14px}.stats{grid-template-columns:repeat(2,1fr)}.inputs{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-list{grid-template-columns:1fr}.split{grid-template-columns:1fr}.arch-flow{grid-template-columns:repeat(2,1fr)}.intro h1{font-size:24px}.topbar{margin-top:5px}}@media(max-width:420px){.inputs{grid-template-columns:1fr}.stat{padding:13px}.arch-flow{grid-template-columns:1fr}.prodcard{padding:12px}}
+
+.rank.review{color:#8e620b;background:#fff2da}.explain.review{background:#fff8ec;color:#8e620b}.prodcard.review{border-color:#f1d6a7;background:#fffefa}
+</style></head><body>
+<div class="mobile-head"><strong>◈ AI Sourcing</strong><select id="mobile-nav" aria-label="切换模块"><option value="match">智能选型</option><option value="catalog">产品目录</option><option value="rfq">RFQ 询价</option><option value="architecture">技术架构</option></select></div>
+<div class="app"><aside class="sidebar"><div class="mark"><div class="mark-square">◈</div><div><strong>AI Sourcing</strong><small>COPILOT / LAB</small></div></div><div class="nav-label">产品演示</div><nav class="nav" aria-label="主导航"><button data-page="match" class="active"><span class="ni">◉</span> 智能选型</button><button data-page="catalog"><span class="ni">▦</span> 样例产品目录</button><button data-page="rfq"><span class="ni">▤</span> RFQ 需求单</button><button data-page="architecture"><span class="ni">◇</span> 技术架构</button></nav><div class="sidefoot"><div class="mode">● OFFLINE DEMONSTRATION</div><p>所有商品、供应商、价格均为虚构样例。规则匹配 ≠ 真实 AI 模型或实时询价。</p></div></aside><main class="content"><header class="topbar"><div class="breadcrumb">概念产品 / 可解释采购系统 / <b id="nav-label">智能选型</b></div><div class="topright"><span class="chip green" id="connection-pill">纯离线模式</span><span class="chip">v0.1 · Demo</span><div class="avatar">AI</div></div></header>
+<section class="block active" id="page-match"><div class="intro"><div class="eyebrow">FROM INTENT TO SOURCING DECISION</div><h1>让专业采购，从一个需求开始。</h1><p>把模糊的工业相机采购需求拆成硬约束，明确解释“为什么推荐 / 为什么排除”，再生成结构化 RFQ。</p></div><div class="notice"><strong>演示声明：</strong>本原型使用虚构产品与供应商；当前文字解析为本地规则，不调用 LLM；匹配结果与价格不可用于真实采购决策。</div><div class="stats"><div class="stat"><label>演示商品库</label><b id="stat-products">16</b><small>虚构 SKU</small></div><div class="stat"><label>样例供应商</label><b>3</b><small>虚构主体</small></div><div class="stat"><label>本次通过硬约束</label><b id="stat-eligible">—</b><small>仅代表模拟字段</small></div><div class="stat"><label>已生成 RFQ</label><b id="stat-rfq">0</b><small>本地演示记录</small></div></div><div class="two"><div><div class="panel"><div class="panel-head"><div><h2>01 · 输入采购需求</h2><div class="sub">自然语言 → 可编辑的结构化参数</div></div><span class="pill">需求理解</span></div><label class="field" for="query">客户原始需求</label><textarea id="query" class="textarea" placeholder="例如：需要 Linux ARM64 的 USB3 工业相机，用于高速检测，要求全局快门、≥2MP、≥120fps，单价不超过 $320，采购 20 台。">需要 Linux ARM64 的 USB3 工业相机，用于高速检测，要求全局快门、≥2MP、≥120fps，单价不超过 $320，采购 20 台。</textarea><div class="scenario" aria-label="示例需求"><button data-scenario="speed">⚡ 高速检测</button><button data-scenario="distance">▣ 远距离布线</button><button data-scenario="budget">＄ 低预算选型</button></div><div class="actions"><button class="secondary" id="parse-btn">① 解析文本</button><button class="primary" id="match-btn">② 执行匹配 →</button></div><p class="hint">文本解析是简单规则识别，解析结果允许人工修正。生产版才会接入带结构化输出的模型。</p></div><div class="panel"><div class="panel-head"><div><h2>02 · 硬性约束与业务参数</h2><div class="sub">这些条件不由向量相似度覆盖</div></div><span class="pill">规则引擎</span></div><div class="inputs"><div><label class="field" for="interface">接口类型</label><select id="interface" class="select"><option value="any">不限</option><option value="USB3">USB3</option><option value="GigE">GigE</option><option value="conflict">互相冲突</option></select></div><div><label class="field" for="shutter">快门方式</label><select id="shutter" class="select"><option value="any">不限</option><option value="global">全局快门</option><option value="rolling">卷帘快门</option><option value="conflict">需求冲突</option></select></div><div><label class="field" for="os">SDK 系统</label><select id="os" class="select"><option value="any">不限</option><option value="Linux">Linux</option><option value="Windows">Windows</option><option value="conflict">需求冲突</option></select></div><div><label class="field" for="arch">Linux 架构</label><select id="arch" class="select"><option value="any">不限</option><option value="arm64">ARM64</option><option value="x86_64">x86_64</option></select></div><div><label class="field" for="min_mp">最低像素 MP</label><input id="min_mp" class="input" type="number" value="2" step="0.1" min="0"></div><div><label class="field" for="min_fps">最低帧率 fps</label><input id="min_fps" class="input" type="number" value="120" min="0"></div><div><label class="field" for="max_price">单价上限 USD</label><input id="max_price" class="input" type="number" value="320" min="0"></div><div><label class="field" for="qty">采购数量 台</label><input id="qty" class="input" type="number" value="20" min="1"></div><div><label class="field" for="country">目的地（RFQ）</label><select id="country" class="select"><option>United States</option><option>Germany</option><option>United Kingdom</option><option>Japan</option><option>Singapore</option><option>Other / TBD</option></select></div></div></div><div class="panel"><h2>系统信任边界</h2><div class="mini-list"><div class="mini-item"><span>语义 / 文字理解</span><small>规则样例，非模型</small></div><div class="mini-item"><span>规格匹配 / 排除</span><small>真实执行</small></div><div class="mini-item"><span>厂家报价 / 库存</span><small>未接入</small></div><div class="mini-item"><span>下单 / 支付 / 物流</span><small>未接入</small></div></div></div></div><div><div class="panel"><div class="panel-head"><div><h2>03 · 可解释推荐结果</h2><div class="sub">按硬约束过滤后排序；不满足的候选必须展示排除原因</div></div><span class="pill" id="result-count">待运行</span></div><div class="steps"><span class="step done">需求解析</span><span class="arrow">›</span><span class="step done">候选召回</span><span class="arrow">›</span><span class="step done">硬约束校验</span><span class="arrow">›</span><span class="step">推荐排序</span><span class="arrow">›</span><span class="step">人工确认</span></div><div id="result-summary" class="result-summary">选择场景并点击「执行匹配」，系统将计算匹配结果。</div><div class="resulttabs"><button data-filter="eligible" class="active">可选候选 <span id="eligible-num"></span></button><button data-filter="review">待核实 <span id="review-num"></span></button><button data-filter="rejected">排除项 <span id="rejected-num"></span></button></div><div id="results"></div><div id="comparison" class="comparebox"></div></div></div></div></section>
+<section class="block" id="page-catalog"><div class="intro"><div class="eyebrow">SYNTHETIC PRODUCT CATALOG</div><h1>专业商品目录</h1><p>演示用的标准化商品数据：SKU、接口、快门、系统、平台、帧率、像素、交期与示例价格。</p></div><div class="notice">商品名、价格、供应商均为虚构。该表不代表实际深圳供货数据，也不构成报价。</div><div class="panel"><div class="panel-head"><div><h2>商品主数据 · 16 条</h2><div class="sub">技术参数一旦缺失，生产版必须进入待确认状态</div></div><input id="catalog-search" class="input" style="max-width:240px" placeholder="搜索 SKU、型号、标签"></div><div class="tablewrap"><table class="data-table" id="catalog-table"><thead><tr><th>型号 / SKU</th><th>接口</th><th>快门</th><th>分辨率</th><th>最高帧率</th><th>SDK</th><th>演示价格</th><th>操作</th></tr></thead><tbody></tbody></table></div></div><div class="sectionhead"><h2>供应商档案</h2><span class="pill">仅示例</span></div><div class="grid-list" id="suppliers"></div></section>
+<section class="block" id="page-rfq"><div class="intro"><div class="eyebrow">STRUCTURED SALES HANDOFF</div><h1>RFQ 需求单管理</h1><p>从选型候选进入询价单，保留硬约束、采购数量、目的地与必须由真人确认的风险。</p></div><div class="notice">这里只保存草稿；不会自动发送到供应商，不会生成真实报价或下采购订单。</div><div class="panel"><div class="panel-head"><div><h2>本次演示创建的需求单</h2><span class="pill" id="rfq-count">0 条</span></div><div id="rfq-list"></div><div class="buttonbox"><button class="secondary" id="export-rfq">导出全部 RFQ JSON</button><button class="secondary" id="clear-rfq">清空本地演示记录</button></div></div></section>
+<section class="block" id="page-architecture"><div class="intro"><div class="eyebrow">SYSTEM ARCHITECTURE</div><h1>技术架构与能力边界</h1><p>早期采用模块化单体，验证真实交易价值后，再逐步接入语义检索、供应商系统与人工审批工作流。</p></div><div class="notice">下方“生产目标”并非当前 Demo 已完成的能力。当前真实可运行的仅为规则匹配、样例目录和 RFQ 草稿管理。</div><div class="panel"><div class="panel-head"><h2>核心交易决策流水线</h2><span class="pill">数据 / 规则 / 人工审核</span></div><div class="arch-flow"><div class="arch-node"><b>采购需求</b><span>自然语言、采购量、地区</span></div><div class="arch-node highlight"><b>需求解析</b><span>结构化约束 + 置信度</span></div><div class="arch-node highlight"><b>候选检索</b><span>关键词 + 向量（目标）</span></div><div class="arch-node highlight"><b>硬约束校验</b><span>SKU / OS / 接口 / 价格</span></div><div class="arch-node"><b>RFQ 交接</b><span>审核后询价和履约</span></div></div><div class="grid-list"><div class="supply"><div class="symbol">◈</div><h3>现在可运行的 Demo</h3><p>HTML / CSS / 原生 JavaScript；Python FastAPI；SQLite；样例 JSON 目录；规则匹配；RFQ 草稿 API。可本地启动，不需要 API Key。</p></div><div class="supply"><div class="symbol">◇</div><h3>正式试点的技术栈</h3><p>Next.js / TypeScript；FastAPI / Pydantic；PostgreSQL + pgvector；对象存储；AI 模型结构化抽取；服务端可配置的兼容性规则；人工审核和审计日志。</p></div></div></div><div class="panel"><div class="panel-head"><h2>接口演示</h2><span class="pill">FastAPI 可用</span></div><div class="codeblock">POST /api/parse    { "text": "Linux ARM64 USB3 全局快门 ≥2MP ≥120fps ..." }
+POST /api/match    { "interface": "USB3", "os": "Linux", "arch": "arm64", "min_mp": 2, "min_fps": 120, "max_price": 320 }
+POST /api/rfqs     { "sku": "DEMO-CAM-001", "qty": 20, "destination": "Germany", "requirements": { ... } }
+GET  /api/products
+GET  /api/rfqs
+GET  /docs           # 本地 FastAPI 启动时才可用</div><p class="hint">生产环境需要增加认证、用户隔离、细粒度权限、限流、供应商数据权限、隐私合规、人工报价审核与支付安全。示例 API 不可直接公网部署。</p></div></section>
+<footer class="footer">AI Sourcing Copilot · 可运行的概念原型 · 数据全部虚构 · 非真实报价 · © 2026 Concept Demonstration</footer></main></div>
+<div class="modal-backdrop" id="rfq-modal"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="rfq-modal-title"><div class="overlaytop"><div><div class="eyebrow">REQUEST FOR QUOTATION</div><h2 id="rfq-modal-title">生成 RFQ 草稿</h2><p id="rfq-model"></p></div><button class="close" id="close-modal" aria-label="关闭">×</button></div><div class="grid-list"><div><label class="field">采购数量</label><input id="rfq-qty" class="input" type="number" min="1" value="20"></div><div><label class="field">目的地</label><select id="rfq-dest" class="select"><option>United States</option><option>Germany</option><option>United Kingdom</option><option>Japan</option><option>Singapore</option><option>Other / TBD</option></select></div></div><label class="field">补充要求（可选）</label><textarea class="textarea" id="rfq-notes" style="min-height:75px" placeholder="例如：请确认 SDK 版本、工业镜头接口、付款与质保条款。"></textarea><div class="notice" style="margin-bottom:0">该 RFQ 仅保存为演示草稿，不发送。标价为虚构数据，不含运费、税费或合规成本。</div><div class="actions"><button class="secondary" id="cancel-modal">取消</button><button class="primary" id="save-rfq">保存 RFQ 草稿</button></div></div></div><div class="toast" id="toast"></div><script>window.__DEMO_CATALOG__ = [
+  {
+    "sku": "DEMO-CAM-001",
+    "name": "NovaCam U3-GS-2",
+    "vendor": "样例供应商 A",
+    "interface": "USB3",
+    "shutter": "global",
+    "mp": 2.0,
+    "fps": 160,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "arm64",
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 245,
+    "lead_days": 14,
+    "sdk": "DemoSDK 3.2",
+    "tags": [
+      "高速检测",
+      "边缘AI",
+      "通用产线"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-002",
+    "name": "EdgeVision GE-GS-5",
+    "vendor": "样例供应商 B",
+    "interface": "GigE",
+    "shutter": "global",
+    "mp": 5.0,
+    "fps": 48,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 368,
+    "lead_days": 10,
+    "sdk": "VisionAPI 2.4",
+    "tags": [
+      "长距离布线",
+      "工业检测"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-003",
+    "name": "MiniSight U3-RS-2",
+    "vendor": "样例供应商 C",
+    "interface": "USB3",
+    "shutter": "rolling",
+    "mp": 2.0,
+    "fps": 90,
+    "os": [
+      "Windows"
+    ],
+    "linux_arch": [],
+    "mount": "CS-Mount",
+    "price_usd": 152,
+    "lead_days": 7,
+    "sdk": "WinCapture 1.5",
+    "tags": [
+      "成本优先",
+      "静态检测"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-004",
+    "name": "NovaCam U3-GS-1.3",
+    "vendor": "样例供应商 A",
+    "interface": "USB3",
+    "shutter": "global",
+    "mp": 1.3,
+    "fps": 210,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "arm64",
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 205,
+    "lead_days": 11,
+    "sdk": "DemoSDK 3.2",
+    "tags": [
+      "高速检测",
+      "边缘AI"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-005",
+    "name": "OptiCore U3-GS-5",
+    "vendor": "样例供应商 C",
+    "interface": "USB3",
+    "shutter": "global",
+    "mp": 5.0,
+    "fps": 40,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 325,
+    "lead_days": 16,
+    "sdk": "OptiSuite 4.0",
+    "tags": [
+      "高分辨率",
+      "精密检测"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-006",
+    "name": "EdgeVision GE-GS-12",
+    "vendor": "样例供应商 B",
+    "interface": "GigE",
+    "shutter": "global",
+    "mp": 12.0,
+    "fps": 22,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 680,
+    "lead_days": 25,
+    "sdk": "VisionAPI 2.4",
+    "tags": [
+      "高分辨率",
+      "产线检测"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-007",
+    "name": "EdgeVision GE-GS-2",
+    "vendor": "样例供应商 B",
+    "interface": "GigE",
+    "shutter": "global",
+    "mp": 2.0,
+    "fps": 120,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "arm64",
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 310,
+    "lead_days": 14,
+    "sdk": "VisionAPI 2.4",
+    "tags": [
+      "高速检测",
+      "长距离布线"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-008",
+    "name": "MiniSight U3-RS-5",
+    "vendor": "样例供应商 C",
+    "interface": "USB3",
+    "shutter": "rolling",
+    "mp": 5.0,
+    "fps": 70,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "arm64",
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 218,
+    "lead_days": 8,
+    "sdk": "MiniSDK 2.0",
+    "tags": [
+      "高分辨率",
+      "静态检测"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-009",
+    "name": "NovaCam U3-GS-2W",
+    "vendor": "样例供应商 A",
+    "interface": "USB3",
+    "shutter": "global",
+    "mp": 2.0,
+    "fps": 132,
+    "os": [
+      "Windows"
+    ],
+    "linux_arch": [],
+    "mount": "CS-Mount",
+    "price_usd": 198,
+    "lead_days": 9,
+    "sdk": "WinCapture 2.8",
+    "tags": [
+      "高速检测",
+      "Windows专用"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-010",
+    "name": "MegaView GE-RS-8",
+    "vendor": "样例供应商 C",
+    "interface": "GigE",
+    "shutter": "rolling",
+    "mp": 8.0,
+    "fps": 40,
+    "os": [
+      "Windows"
+    ],
+    "linux_arch": [],
+    "mount": "C-Mount",
+    "price_usd": 280,
+    "lead_days": 18,
+    "sdk": "WinCapture 1.5",
+    "tags": [
+      "大画幅",
+      "静态检测"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-011",
+    "name": "NovaCam U3-GS-3",
+    "vendor": "样例供应商 A",
+    "interface": "USB3",
+    "shutter": "global",
+    "mp": 3.0,
+    "fps": 120,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "arm64",
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 295,
+    "lead_days": 13,
+    "sdk": "DemoSDK 3.2",
+    "tags": [
+      "高速检测",
+      "边缘AI"
+    ],
+    "sdk_arch_uncertain": true
+  },
+  {
+    "sku": "DEMO-CAM-012",
+    "name": "EdgeVision GE-GS-5A",
+    "vendor": "样例供应商 B",
+    "interface": "GigE",
+    "shutter": "global",
+    "mp": 5.0,
+    "fps": 35,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "arm64",
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 455,
+    "lead_days": 19,
+    "sdk": "VisionAPI 2.4",
+    "tags": [
+      "高分辨率",
+      "边缘AI"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-013",
+    "name": "OptiCore U3-GS-2H",
+    "vendor": "样例供应商 C",
+    "interface": "USB3",
+    "shutter": "global",
+    "mp": 2.0,
+    "fps": 240,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 395,
+    "lead_days": 20,
+    "sdk": "OptiSuite 4.0",
+    "tags": [
+      "超高速",
+      "工业检测"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-014",
+    "name": "NovaCam U3-GS-5A",
+    "vendor": "样例供应商 A",
+    "interface": "USB3",
+    "shutter": "global",
+    "mp": 5.0,
+    "fps": 60,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "arm64",
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 398,
+    "lead_days": 16,
+    "sdk": "DemoSDK 3.2",
+    "tags": [
+      "高分辨率",
+      "边缘AI"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-015",
+    "name": "MiniSight GE-GS-2W",
+    "vendor": "样例供应商 C",
+    "interface": "GigE",
+    "shutter": "global",
+    "mp": 2.0,
+    "fps": 70,
+    "os": [
+      "Windows"
+    ],
+    "linux_arch": [],
+    "mount": "C-Mount",
+    "price_usd": 225,
+    "lead_days": 8,
+    "sdk": "WinCapture 1.5",
+    "tags": [
+      "成本优先",
+      "工业检测"
+    ]
+  },
+  {
+    "sku": "DEMO-CAM-016",
+    "name": "NovaCam U3-GS-1.6",
+    "vendor": "样例供应商 A",
+    "interface": "USB3",
+    "shutter": "global",
+    "mp": 1.6,
+    "fps": 175,
+    "os": [
+      "Linux",
+      "Windows"
+    ],
+    "linux_arch": [
+      "arm64",
+      "x86_64"
+    ],
+    "mount": "C-Mount",
+    "price_usd": 225,
+    "lead_days": 12,
+    "sdk": "DemoSDK 3.2",
+    "tags": [
+      "高速检测",
+      "边缘AI"
+    ]
+  }
+]
+;
+</script><script>/* AI Sourcing Copilot demo - standalone/offline compatible. All catalog records are synthetic.
+ * Literal data is loaded from catalog-data.js. No LLM is called.
+ */
+(() => {
+'use strict';
+const PRODUCTS = window.__DEMO_CATALOG__ || [];
+const $ = (id) => document.getElementById(id);
+const escapeHTML = (v) => String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const scenarios = {
+  speed:'需要 Linux ARM64 的 USB3 工业相机，用于高速检测，要求全局快门、≥2MP、≥120fps，单价不超过 $320，采购 20 台。',
+  distance:'德国工业产线远距离布线，使用 GigE 接口、Linux x86_64，全局快门，≥5MP、≥30fps，预算 $480，数量 10 台。',
+  budget:'需要 Windows USB3 的全局快门工业相机，≥2MP、≥60fps，预算 $250，采购 5 台。'
+};
+let lastResult = null, lastReq = null, viewFilter='eligible', page='match', selectedSKU=null;
+const comparison = new Set();
+let rfqs = [];
+try { rfqs = JSON.parse(localStorage.getItem('aisourcing_demo_rfqs_v1')||'[]'); if(!Array.isArray(rfqs))rfqs=[]; }catch(_){rfqs=[];}
+const formatUSD = n=>n==null?'—':('$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:2}));
+function notify(text){ const el=$('toast');el.textContent=text;el.classList.add('on');window.clearTimeout(notify.timer);notify.timer=window.setTimeout(()=>el.classList.remove('on'),2800); }
+function displayPage(next){page=next;document.querySelectorAll('.block').forEach(e=>e.classList.toggle('active',e.id==='page-'+next));document.querySelectorAll('.nav button').forEach(e=>e.classList.toggle('active',e.dataset.page===next));$('mobile-nav').value=next;$('nav-label').textContent={match:'智能选型',catalog:'样例产品目录',rfq:'RFQ 需求单',architecture:'技术架构'}[next];if(next==='rfq')renderRFQs();if(next==='catalog')renderCatalog();window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('[data-page]').forEach(x=>x.addEventListener('click',()=>displayPage(x.dataset.page)));
+$('mobile-nav').addEventListener('change',e=>displayPage(e.target.value));
+function parseText(s){
+ const t=s.toLowerCase();let interfaceType='any',shutter='any',os='any',arch='any';
+ if(/usb\s*3|usb3|\bu3\b/.test(t))interfaceType='USB3';
+ if(/gige|千兆网|千兆以太|网口/.test(t))interfaceType=interfaceType==='any'?'GigE':'conflict';
+ if(/全局快门|global shutter/.test(t))shutter='global';
+ if(/卷帘|rolling shutter/.test(t))shutter=shutter==='any'?'rolling':'conflict';
+ if(/linux/.test(t))os='Linux';if(/windows|win10|win11/.test(t))os=os==='any'?'Windows':'conflict';
+ if(/arm64|aarch64/.test(t))arch='arm64';else if(/x86_64|x86-64/.test(t))arch='x86_64';
+ let mp=/(?:≥|>=|至少|不低于|高于|不少于)\s*(\d+(?:\.\d+)?)\s*(?:mp|百万像素)/i.exec(t)||/(\d+(?:\.\d+)?)\s*(?:mp|百万像素)\s*(?:以上|及以上|起)/i.exec(t);
+ let fps=/(?:≥|>=|至少|不低于|高于|不少于)\s*(\d+)\s*(?:fps|帧)/i.exec(t)||/(\d+)\s*(?:fps|帧)\s*(?:以上|及以上|起)/i.exec(t);
+ let price=/(?:\$|usd\s*)(\d+(?:\.\d+)?)/i.exec(t)||/(?:预算|单价|价格)[^\d]{0,10}(\d+(?:\.\d+)?)\s*(?:美元|美金)/i.exec(t);
+ let qty=/(?:数量|采购|需要|qty|quantity)\s*(\d+)\s*(?:台|个|套|pcs|units)?/i.exec(t);
+ return {interface:interfaceType,shutter,os,arch,min_mp:mp?Number(mp[1]):0,min_fps:fps?Number(fps[1]):0,max_price:price?Number(price[1]):null,qty:qty?Math.max(1,Number(qty[1])):1,text:s};
+}
+function updateForm(r){$('interface').value=r.interface;$('shutter').value=r.shutter;$('os').value=r.os;$('arch').value=r.arch;$('min_mp').value=r.min_mp;$('min_fps').value=r.min_fps;$('max_price').value=r.max_price??'';$('qty').value=r.qty;}
+function readForm(){return {text:$('query').value,interface:$('interface').value,shutter:$('shutter').value,os:$('os').value,arch:$('arch').value,min_mp:Number($('min_mp').value||0),min_fps:Number($('min_fps').value||0),max_price:$('max_price').value===''?null:Number($('max_price').value),qty:Math.max(1,Number($('qty').value||1))};}
+function matchLocal(req){
+ const list=PRODUCTS.map(original=>{
+ const p={...original};const failures=[];const reviews=[];
+ if(req.interface==='conflict')failures.push('接口需求冲突：USB3 与 GigE 不能同时限定');else if(req.interface!=='any'&&p.interface!==req.interface)failures.push(`接口不符：要求 ${req.interface}，商品为 ${p.interface}`);
+ if(req.shutter!=='any'&&p.shutter!==req.shutter)failures.push('快门不符：要求'+(req.shutter==='global'?'全局快门':'卷帘快门'));
+ if(req.os!=='any'&&!p.os.includes(req.os))failures.push('SDK 不符：缺少 '+req.os);
+ if(req.os==='Linux'&&req.arch!=='any'){if(p.sdk_arch_uncertain&&p.linux_arch.includes(req.arch))reviews.push('Linux SDK '+req.arch+' 支持证据尚待确认（模拟未知字段）');else if(!p.linux_arch.includes(req.arch))failures.push('Linux SDK 架构不符：缺少 '+req.arch);}
+ if(p.mp<req.min_mp)failures.push(`像素不足：${p.mp} MP < ${req.min_mp} MP`);
+ if(p.fps<req.min_fps)failures.push(`帧率不足：${p.fps} fps < ${req.min_fps} fps`);
+ if(req.max_price!==null&&p.price_usd>req.max_price)failures.push(`示例单价超预算：${formatUSD(p.price_usd)} > ${formatUSD(req.max_price)}`);
+ let budget=req.max_price||Math.max(p.price_usd,1);
+ let priceScore=req.max_price!==null?Math.max(0,Math.min(25,25*(budget-p.price_usd)/Math.max(budget,1))):Math.max(0,25-0.04*p.price_usd);
+ let fpsScore=req.min_fps===0?20:Math.min(20,12+8*Math.min(Math.max((p.fps-req.min_fps)/Math.max(req.min_fps,1),0),1));
+ let mpScore=req.min_mp===0?20:Math.min(20,16+4*Math.min(Math.max((p.mp-req.min_mp)/Math.max(req.min_mp,1),0),1));
+ let leadScore=Math.max(0,15-Math.min(p.lead_days,30)*0.5);
+ let featureScore=p.shutter==='global'?20:11;
+ let score=Math.round(Math.min(99,priceScore+fpsScore+mpScore+leadScore+featureScore)*10)/10;
+ const state=failures.length?'rejected':(reviews.length?'needs_review':'candidate');return {...p,status:state,failures,review_reasons:reviews,score:state==='candidate'?score:null,estimated_subtotal_usd:p.price_usd*req.qty,outstanding:['正式型号规格书与 SDK 版本核对','实际 MOQ / 库存 / 报价 / 认证与售后','镜头 / 光源 / 线束接口及物流税费确认']};
+ });
+ const order={candidate:0,needs_review:1,rejected:2};list.sort((a,b)=>order[a.status]-order[b.status]||((b.score||-1)-(a.score||-1))||a.price_usd-b.price_usd);
+ let eligible=list.filter(x=>x.status==='candidate'),review=list.filter(x=>x.status==='needs_review'),rejected=list.filter(x=>x.status==='rejected');return {requirements:req,eligible,review,rejected,stats:{total:list.length,eligible:eligible.length,review:review.length,rejected:rejected.length}};
+}
+function renderProduct(p){let ok=p.status==='candidate',review=p.status==='needs_review';return `<article class="prodcard ${ok?'top':(review?'review':'miss')}"><div class="cardrow"><div><h3>${escapeHTML(p.name)}</h3><small>${escapeHTML(p.sku)} · ${escapeHTML(p.vendor)}</small></div><span class="rank ${ok?'':(review?'review':'no')}">${ok?`${Number(p.score).toFixed(1)} / 99`:(review?'待核实':'不满足')}</span></div><p class="prod-desc">${p.interface} · ${p.shutter==='global'?'全局快门':'卷帘快门'} · ${p.mp} MP · ${p.fps} fps · ${p.os.join('/')} · ${escapeHTML(p.sdk)}</p><div class="metarow"><span class="meta">演示单价 ${formatUSD(p.price_usd)}</span><span class="meta">模拟交期 ${p.lead_days}天</span><span class="meta">${p.linux_arch.length?'Linux '+p.linux_arch.join('/'):'不支持 Linux'}</span></div><div class="explain ${ok?'':(review?'review':'reject')}">${ok?'✓ 样例字段符合全部硬约束；但必须核实官方规格、SDK、MOQ、价格和物流条件。':(review?'! '+escapeHTML((p.review_reasons||[]).join('；'))+'。不作为合格候选。':'✕ '+escapeHTML(p.failures.join('；')))}</div>${ok?`<div class="button-row"><button class="secondary" data-compare="${escapeHTML(p.sku)}">${comparison.has(p.sku)?'取消对比':'加入对比'}</button><button class="primary" data-rfq="${escapeHTML(p.sku)}">创建 RFQ 草稿 →</button></div>`:''}</article>`;}
+function renderResults(){if(!lastResult)return;let ok=lastResult.eligible.length,fail=lastResult.rejected.length,review=(lastResult.review||[]).length;$('stat-eligible').textContent=ok;$('result-count').textContent=`${ok} 通过 / ${review} 待核 / ${fail} 排除`;$('eligible-num').textContent=ok;$('review-num').textContent=review;$('rejected-num').textContent=fail;
+ $('result-summary').className='result-summary'+(ok?'':' empty');$('result-summary').textContent=ok?`本次有 ${ok} 条样例符合所选硬约束；优先推荐排序不代表真实技术验证。采购量 ${lastReq.qty} 台，必须人工核实兼容性及供货。`:`没有任何样例满足全部硬约束。系统不会为了“给出答案”而推荐不兼容的商品。`;
+ const rows=viewFilter==='eligible'?lastResult.eligible:(viewFilter==='review'?(lastResult.review||[]):lastResult.rejected);$('results').innerHTML=rows.length?rows.map(renderProduct).join(''):'<div class="noresults">当前分类暂无记录。可切换至「待核实」或「排除项」查看其他结果。</div>';
+ $('comparison').innerHTML=comparison.size?`<div class="cardrow"><b style="font-size:12px">已选 ${comparison.size} 个型号对比</b><button class="secondary" id="show-comparison">打开参数对比</button></div>`:'';
+}
+async function runMatch(){lastReq=readForm();if(lastReq.max_price!==null&&lastReq.max_price<0){notify('价格不能为负数');return;}$('match-btn').disabled=true;$('match-btn').textContent='正在校验…';try{if(location.protocol.startsWith('http')){
+ const res=await fetch('/api/match',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(lastReq)});if(!res.ok)throw new Error('backend unavailable');lastResult=await res.json();
+ }else{lastResult=matchLocal(lastReq);} }catch(_){lastResult=matchLocal(lastReq);$('connection-pill').textContent='纯离线模式';}
+ $('match-btn').disabled=false;$('match-btn').textContent='② 执行匹配 →';renderResults();}
+function openRFQ(sku){selectedSKU=sku;const p=PRODUCTS.find(x=>x.sku===sku);if(!p)return;$('rfq-model').textContent=`${p.name} · ${p.sku} · 演示价 ${formatUSD(p.price_usd)} / 台`;$('rfq-qty').value=lastReq?.qty||Number($('qty').value)||1;$('rfq-dest').value=$('country').value;$('rfq-notes').value='请核实正式规格书、SDK 和接口兼容性，并提供带有效期的正式报价及交付条款。';$('rfq-modal').classList.add('show');$('rfq-qty').focus();}
+function closeRFQ(){$('rfq-modal').classList.remove('show');}
+function saveLocal(silent=false){try{localStorage.setItem('aisourcing_demo_rfqs_v1',JSON.stringify(rfqs));}catch(_){if(!silent)notify('浏览器存储不可用：本次仅在页面内保留');}$('stat-rfq').textContent=rfqs.length;}
+async function saveRFQ(){if(!selectedSKU)return;const qty=Math.max(1,Number($('rfq-qty').value)||1);const item={id:'DRFQ-'+Date.now().toString(36).toUpperCase(),created_at:new Date().toISOString(),sku:selectedSKU,qty,destination:$('rfq-dest').value,requirements:lastReq||readForm(),notes:$('rfq-notes').value,status:'draft-only',demo:true};if(location.protocol.startsWith('http')){try{const resp=await fetch('/api/rfqs',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({sku:item.sku,qty:item.qty,destination:item.destination,requirements:item.requirements,notes:item.notes})});if(resp.ok){const saved=await resp.json();item.id=saved.id;}}catch(_){}}
+ rfqs.unshift(item);saveLocal();closeRFQ();notify('RFQ 演示草稿已保存，未对外发送');displayPage('rfq');}
+function renderRFQs(){$('rfq-count').textContent=rfqs.length+' 条';$('stat-rfq').textContent=rfqs.length;let el=$('rfq-list');el.innerHTML=rfqs.length?rfqs.map(r=>{const p=PRODUCTS.find(x=>x.sku===r.sku)||{};return `<div class="prodcard"><div class="cardrow"><div><h3>${escapeHTML(r.id)} · ${escapeHTML(p.name||r.sku)}</h3><small>${escapeHTML(new Date(r.created_at).toLocaleString('zh-CN'))} · ${escapeHTML(r.destination)}</small></div><span class="rank">草稿 · 未发送</span></div><p class="prod-desc">采购数量 ${Number(r.qty)} 台 · 型号 ${escapeHTML(r.sku)} · 演示小计 ${formatUSD((p.price_usd||0)*r.qty)}（不含物流税费，非报价）</p><div class="explain">待确认：产品兼容、正式规格书、供方 MOQ/交期、报价有效期、认证和出口条件。<br>备注：${escapeHTML(r.notes||'无')}</div><div class="button-row"><button class="secondary" data-copy-rfq="${escapeHTML(r.id)}">复制需求单文本</button></div></div>`;}).join(''):'<div class="noresults">还没有 RFQ。回到「智能选型」，从符合硬约束的候选产品创建一张需求单。</div>';}
+function renderCatalog(){const q=$('catalog-search').value.trim().toLowerCase();const rows=PRODUCTS.filter(p=>(p.name+' '+p.sku+' '+p.tags.join(' ')+' '+p.vendor).toLowerCase().includes(q));document.querySelector('#catalog-table tbody').innerHTML=rows.map(p=>`<tr><td><b>${escapeHTML(p.name)}</b><br><small class="muted">${escapeHTML(p.sku)}</small></td><td>${p.interface}</td><td>${p.shutter==='global'?'全局':'卷帘'}</td><td>${p.mp} MP</td><td>${p.fps} fps</td><td>${escapeHTML(p.os.join('/'))}</td><td>${formatUSD(p.price_usd)}</td><td><button class="table-action" data-rfq="${escapeHTML(p.sku)}">草拟 RFQ</button></td></tr>`).join('');}
+function renderSuppliers(){const suppliers=[{name:'样例供应商 A',desc:'华南地区 · 虚构制造商档案 · 6 个演示SKU',code:'A'},{name:'样例供应商 B',desc:'华南地区 · 虚构制造商档案 · 4 个演示SKU',code:'B'},{name:'样例供应商 C',desc:'华南地区 · 虚构制造商档案 · 6 个演示SKU',code:'C'}];$('suppliers').innerHTML=suppliers.map(p=>`<div class="supply"><div class="symbol">${p.code}</div><h3>${p.name}</h3><p>${p.desc}。实际企业需要核验工商主体、产能、交易记录、质量体系与售后。</p></div>`).join('');}
+function comparisonTable(){const ps=[...comparison].map(s=>PRODUCTS.find(p=>p.sku===s)).filter(Boolean);if(!ps.length)return;const fields=[['型号','name'],['接口','interface'],['快门','shutter'],['分辨率','mp'],['帧率','fps'],['支持系统','os'],['Linux 架构','linux_arch'],['镜头接口','mount'],['示例单价','price_usd'],['模拟交期','lead_days']];let html=`<div class="panel"><div class="panel-head"><h2>选型对比 · ${ps.length} 个型号</h2><button class="secondary" id="close-compare">关闭</button></div><div class="tablewrap"><table class="data-table"><thead><tr><th>对比维度</th>${ps.map(p=>`<th>${escapeHTML(p.sku)}</th>`).join('')}</tr></thead><tbody>${fields.map(([label,k])=>`<tr><td><b>${label}</b></td>${ps.map(p=>`<td>${escapeHTML(Array.isArray(p[k])?p[k].join('/'):(k==='price_usd'?formatUSD(p[k]):p[k]))}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="hint">请使用正式数据手册和 SDK 版本信息进行最终技术核对。</p></div>`;const node=document.createElement('div');node.id='comparison-modal';node.className='modal-backdrop show';node.innerHTML=`<div class="modal" style="width:min(900px,100%)">${html}</div>`;document.body.append(node);node.addEventListener('click',e=>{if(e.target===node||e.target.id==='close-compare')node.remove();});}
+function downloadFile(name,content,type='application/json;charset=utf-8'){const a=document.createElement('a');const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),600);}
+function copyText(t){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(()=>notify('已复制')).catch(()=>window.prompt('复制以下内容：',t));}else{window.prompt('复制以下内容：',t);}}
+document.body.addEventListener('click',e=>{const b=e.target.closest('[data-rfq],[data-compare],[data-copy-rfq]');if(!b)return;if(b.dataset.rfq)openRFQ(b.dataset.rfq);if(b.dataset.compare){if(comparison.has(b.dataset.compare))comparison.delete(b.dataset.compare);else if(comparison.size>=3)return notify('最多对比 3 个型号');else comparison.add(b.dataset.compare);renderResults();}if(b.dataset.copyRfq){const item=rfqs.find(r=>r.id===b.dataset.copyRfq);if(item)copyText(JSON.stringify(item,null,2));}});
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{viewFilter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(z=>z.classList.toggle('active',z===b));renderResults();}));
+document.querySelectorAll('[data-scenario]').forEach(b=>b.addEventListener('click',()=>{$('query').value=scenarios[b.dataset.scenario];updateForm(parseText($('query').value));runMatch();notify('已载入示例场景并执行匹配');}));
+$('parse-btn').addEventListener('click',()=>{updateForm(parseText($('query').value));notify('已按规则解析，请人工确认识别结果');});
+$('match-btn').addEventListener('click',runMatch);
+$('catalog-search').addEventListener('input',renderCatalog);
+$('close-modal').addEventListener('click',closeRFQ);$('cancel-modal').addEventListener('click',closeRFQ);$('rfq-modal').addEventListener('click',e=>{if(e.target.id==='rfq-modal')closeRFQ();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeRFQ();});$('save-rfq').addEventListener('click',saveRFQ);
+$('export-rfq').addEventListener('click',()=>{downloadFile('demo-rfqs-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({demo:true,synthetic:true,rfqs},null,2));notify('RFQ 草稿 JSON 已导出');});
+$('clear-rfq').addEventListener('click',()=>{if(!rfqs.length)return;if(window.confirm('确认清空此浏览器中的演示 RFQ 记录？（服务端演示记录不会删除）')){rfqs=[];saveLocal();renderRFQs();notify('已清空本地记录');}});
+document.addEventListener('click',e=>{if(e.target.id==='show-comparison')comparisonTable();});
+async function init(){renderCatalog();renderSuppliers();saveLocal(true);updateForm(parseText($('query').value));if(location.protocol.startsWith('http')){try{const r=await fetch('/api/health');if(r.ok){$('connection-pill').textContent='FastAPI 本地后端';}}catch(_){}}await runMatch();}
+init();
+})();
+</script></body></html>
